@@ -20,14 +20,14 @@ public class ProjectConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        Map<String,PasswordEncoder> encoders=new HashMap<>();
-        encoders.put("noops",NoOpPasswordEncoder.getInstance());
-        encoders.put("bcrypt",new BCryptPasswordEncoder());
-        encoders.put("scrypt",new SCryptPasswordEncoder());
+//        Map<String, PasswordEncoder> encoders = new HashMap<>();
+//        encoders.put("noop", NoOpPasswordEncoder.getInstance());
+//        encoders.put("bcrypt", new BCryptPasswordEncoder());
+//        encoders.put("scrypt", new SCryptPasswordEncoder());
 
 //        PasswordEncoder instance = NoOpPasswordEncoder.getInstance();
-//        return NoOpPasswordEncoder.getInstance();
-        return new DelegatingPasswordEncoder("bcrypt", encoders);
+        return NoOpPasswordEncoder.getInstance();
+//        return new DelegatingPasswordEncoder("bcrypt", encoders);
     }
 
     @Bean
