@@ -1,28 +1,58 @@
 package org.mykola.spilcaSecurityStudy.config;
 
+import org.mykola.spilcaSecurityStudy.security.CustomAuthenticationProvider;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @Configuration
+@EnableWebSecurity
 public class ProjectConfig extends WebSecurityConfigurerAdapter {
+
+//
+@Autowired
+private CustomAuthenticationProvider authenticationProvider;
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) {
+        auth.authenticationProvider(authenticationProvider);
+    }
+//
+
+    //alternative way
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        var userDetailsService = new InMemoryUserDetailsManager();
+//        var user = User.withUsername("Nick")
+//                .password("12345")
+//                .authorities("read")
+//                .build();
+//        userDetailsService.createUser(user);
+//
+//        var user1 = User.withUsername("Nicky")
+//                .password("123456")
+//                .authorities("read")
+//                .build();
+//        userDetailsService.createUser(user1);
+//
+//        auth.userDetailsService(userDetailsService)
+//                .passwordEncoder(NoOpPasswordEncoder.getInstance());
+//    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        super.configure(http);
+//        http.httpBasic();
+        http.formLogin();
+        http.authorizeRequests()
+                .anyRequest().authenticated();//or instead .permitAll() - no auth for all requests
+
     }
 
     @Bean
@@ -37,15 +67,15 @@ public class ProjectConfig extends WebSecurityConfigurerAdapter {
 //        return new DelegatingPasswordEncoder("bcrypt", encoders);
     }
 
-    @Bean
-    public UserDetailsService userDetailsService(){
-        var userDetailsService = new InMemoryUserDetailsManager();
-        UserDetails user = User.withUsername("Nick")
-                .password("12345")
-                .authorities("read")
-                .build();
-        userDetailsService.createUser(user);
-        return userDetailsService;
-    }
+//    @Bean
+//    public UserDetailsService userDetailsService(){
+//        var userDetailsService = new InMemoryUserDetailsManager();
+//        UserDetails user = User.withUsername("Nicky")
+//                .password("123456")
+//                .authorities("read")
+//                .build();
+//        userDetailsService.createUser(user);
+//        return userDetailsService;
+//    }
 
 }
