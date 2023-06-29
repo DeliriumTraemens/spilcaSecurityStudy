@@ -46,14 +46,14 @@ private CustomAuthenticationProvider authenticationProvider;
 //                .passwordEncoder(NoOpPasswordEncoder.getInstance());
 //    }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-//        http.httpBasic();
-        http.formLogin();
-        http.authorizeRequests()
-                .anyRequest().authenticated();//or instead .permitAll() - no auth for all requests
-
-    }
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+////        http.httpBasic();
+//        http.formLogin();
+//        http.authorizeRequests()
+//                .anyRequest().authenticated();//or instead .permitAll() - no auth for all requests
+//
+//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
