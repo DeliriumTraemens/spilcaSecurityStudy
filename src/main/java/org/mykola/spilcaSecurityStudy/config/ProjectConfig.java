@@ -20,7 +20,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import java.util.List;
 
 //@Configuration
-//@EnableWebSecurity
+
 public class ProjectConfig extends WebSecurityConfigurerAdapter {
 
 //
@@ -33,12 +33,12 @@ public class ProjectConfig extends WebSecurityConfigurerAdapter {
 //
 
 //
-@Autowired
-private CustomAuthenticationProvider authenticationProvider;
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) {
-        auth.authenticationProvider(authenticationProvider);
-    }
+//@Autowired
+//private CustomAuthenticationProvider authenticationProvider;
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) {
+//        auth.authenticationProvider(authenticationProvider);
+//    }
 //
 
     //alternative way
