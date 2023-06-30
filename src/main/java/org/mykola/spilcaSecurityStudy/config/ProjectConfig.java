@@ -24,12 +24,12 @@ import java.util.List;
 public class ProjectConfig extends WebSecurityConfigurerAdapter {
 
 //
-@Bean
-public UserDetailsService userDetailsService() {
-    UserDetails u = new SimpleUser("Nick", "12345", "read");
-    List<UserDetails> users = List.of(u);
-    return new InMemoryUserDetailsService(users);
-}
+//@Bean
+//public UserDetailsService userDetailsService() {
+//    UserDetails u = new SimpleUser("Nick", "12345", "read");
+//    List<UserDetails> users = List.of(u);
+//    return new InMemoryUserDetailsService(users);
+//}
 //
 
 //
