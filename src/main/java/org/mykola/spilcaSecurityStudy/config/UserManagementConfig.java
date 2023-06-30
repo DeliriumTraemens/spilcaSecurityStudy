@@ -11,7 +11,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.authentication.AuthenticationFilter;
 
-@Configuration
+//@Configuration
 public class UserManagementConfig {
 
 
