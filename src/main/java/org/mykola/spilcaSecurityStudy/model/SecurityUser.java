@@ -6,33 +6,27 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-public class SimpleUser implements UserDetails {
+public class SecurityUser implements UserDetails {
+    private final JpaUser user;
 
-    private final String username;
-    private final String password;
-    private final String authority;
-
-    public SimpleUser(String username, String password, String authority) {
-        this.username = username;
-        this.password = password;
-        this.authority = authority;
+    public SecurityUser(JpaUser user) {
+        this.user = user;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(() -> authority);
-    }
-
-    @Override
-    public String getUsername() {
-        return this.username;
+        return List.of(()->user.getAuthority());
     }
 
     @Override
     public String getPassword() {
-        return this.password;
+        return user.getPassword();
     }
 
+    @Override
+    public String getUsername() {
+        return user.getUsername();
+    }
 
     @Override
     public boolean isAccountNonExpired() {

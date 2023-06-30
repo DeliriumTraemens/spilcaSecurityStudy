@@ -1,10 +1,13 @@
 package org.mykola.spilcaSecurityStudy.model;
 
+import lombok.Data;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class UserJpa {
+@Data
+public class JpaUser {
    @Id
     private int id;
     private String username;
