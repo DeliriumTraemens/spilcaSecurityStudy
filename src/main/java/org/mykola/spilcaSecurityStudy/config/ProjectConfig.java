@@ -16,81 +16,24 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 //@Configuration
 
 public class ProjectConfig extends WebSecurityConfigurerAdapter {
 
-//
-//@Bean
-//public UserDetailsService userDetailsService() {
-//    UserDetails u = new SimpleUser("Nick", "12345", "read");
-//    List<UserDetails> users = List.of(u);
-//    return new InMemoryUserDetailsService(users);
-//}
-//
-
-//
-//@Autowired
-//private CustomAuthenticationProvider authenticationProvider;
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) {
-//        auth.authenticationProvider(authenticationProvider);
-//    }
-//
-
-    //alternative way
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        var userDetailsService = new InMemoryUserDetailsManager();
-//        var user = User.withUsername("Nick")
-//                .password("12345")
-//                .authorities("read")
-//                .build();
-//        userDetailsService.createUser(user);
-//
-//        var user1 = User.withUsername("Nicky")
-//                .password("123456")
-//                .authorities("read")
-//                .build();
-//        userDetailsService.createUser(user1);
-//
-//        auth.userDetailsService(userDetailsService)
-//                .passwordEncoder(NoOpPasswordEncoder.getInstance());
-//    }
-
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-////        http.httpBasic();
-//        http.formLogin();
-//        http.authorizeRequests()
-//                .anyRequest().authenticated();//or instead .permitAll() - no auth for all requests
-//
-//    }
+    @Bean
+    public UserDetailsService userDetailsService(DataSource dataSource){
+        return new JdbcUserDetailsManager(dataSource);
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-//        Map<String, PasswordEncoder> encoders = new HashMap<>();
-//        encoders.put("noop", NoOpPasswordEncoder.getInstance());
-//        encoders.put("bcrypt", new BCryptPasswordEncoder());
-//        encoders.put("scrypt", new SCryptPasswordEncoder());
-
-//        PasswordEncoder instance = NoOpPasswordEncoder.getInstance();
         return NoOpPasswordEncoder.getInstance();
-//        return new DelegatingPasswordEncoder("bcrypt", encoders);
     }
 
-//    @Bean
-//    public UserDetailsService userDetailsService(){
-//        var userDetailsService = new InMemoryUserDetailsManager();
-//        UserDetails user = User.withUsername("Nicky")
-//                .password("123456")
-//                .authorities("read")
-//                .build();
-//        userDetailsService.createUser(user);
-//        return userDetailsService;
-//    }
 
 }
