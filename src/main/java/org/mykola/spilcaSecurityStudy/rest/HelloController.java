@@ -15,6 +15,6 @@ public class HelloController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String name = authentication.getName();
 
-        return "Hello, "+principal.getName()+"!"+name;
+        return "Hello, principal name "+principal.getName()+"! authentication name is "+name;
     }
 }
