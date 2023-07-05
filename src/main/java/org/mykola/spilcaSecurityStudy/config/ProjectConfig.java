@@ -1,5 +1,6 @@
 package org.mykola.spilcaSecurityStudy.config;
 
+import org.mykola.spilcaSecurityStudy.security.CustomEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,7 +36,10 @@ public class ProjectConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         String s = new Date().toString();
         http.httpBasic(c->
-                c.realmName("CustomName"+s)
+                {
+                    c.realmName("CustomName " + s);//It's not working together with authenticationEntryPoint
+                    c.authenticationEntryPoint(new CustomEntryPoint());
+                }
         );
         http.authorizeRequests().anyRequest().authenticated();
     }
