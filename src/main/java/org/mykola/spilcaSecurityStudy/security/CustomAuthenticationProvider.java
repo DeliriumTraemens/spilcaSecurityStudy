@@ -13,9 +13,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
-@Autowired
+    @Autowired
     private UserDetailsService userDetailsService;
-@Autowired
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Override
@@ -25,14 +25,14 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
         UserDetails u = userDetailsService.loadUserByUsername(username);
 
-        if(passwordEncoder.matches(password,u.getPassword())){
-            return new UsernamePasswordAuthenticationToken(username,password,u.getAuthorities());
+        if (passwordEncoder.matches(password, u.getPassword())) {
+            return new UsernamePasswordAuthenticationToken(username, password, u.getAuthorities());
         } else throw new BadCredentialsException("Something went wrong");
 
     }
 
     @Override
-    public boolean supports(Class<?> authentication) {
-        return false;
+    public boolean supports(Class<?> authenticationType) {
+        return authenticationType.equals(UsernamePasswordAuthenticationToken.class);
     }
 }
